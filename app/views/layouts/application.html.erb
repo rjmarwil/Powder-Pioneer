@@ -5,10 +5,26 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <%= favicon_link_tag 'ski_favicon.jpeg' %>
 </head>
-<body>
+<body class = "bg">
+  <nav class="navbar navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/"><%= image_tag('Pioneer_powder_Logo.png', class: 'img-responsive') %></a>
+      </div>
+    </div>
+  </nav>
 
-<%= yield %>
+<div class = "container"
+  <%= yield %>
+</div>
 
 </body>
 </html>
