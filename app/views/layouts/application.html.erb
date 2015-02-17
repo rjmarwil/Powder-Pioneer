@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>PowderPioneer</title>
+  <title>Powder Pioneer</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
@@ -11,18 +11,44 @@
   <nav class="navbar navbar-fixed-top">
     <div class="container">
       <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="/"><%= image_tag('Pioneer_powder_Logo.png', class: 'img-responsive') %></a>
+
+        <div class="col-md-6">
+          <a href="/"><%= image_tag('Pioneer_powder_Logo.png', class: 'img-responsive') %></a>
+        </div>
+
+        <div class="navbar-right">
+          <ul class="nav navbar-nav navbar-right">
+            <li><button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Login</button></li>
+
+            <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+
+                  <%= form_tag '/login' do %>
+
+                  <%= label_tag :email %>
+                  <%= text_field_tag :email %>
+
+                  <%= label_tag :password %>
+                  <%= password_field_tag :password %>
+                  
+                  <%= submit_tag 'Login' %>
+
+                  <% end %>
+
+                </div>
+              </div>
+            </div>
+
+            <li><a href="#">About</a></li>
+            <li><a href="#">FAQ</a></li>
+          </ul>
+        </div>
       </div>
     </div>
   </nav>
 
-<div class = "container"
+  <div class = "container"
   <%= yield %>
 </div>
 
