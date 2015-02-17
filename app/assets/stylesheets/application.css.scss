@@ -24,14 +24,7 @@ navbar {
 
 .bg {
   background-image:  image-url("SnowCat-Skiing-Brundage.jpg");
-  min-height: 100%;
-  min-width: 100%;
-
-  /* Set up proportionate scaling */
-  width: 100%;
-  height: auto;
-
-  /* Set up positioning */
+  background-size: 100%;
   top: 0;
   left: 0;
 }
