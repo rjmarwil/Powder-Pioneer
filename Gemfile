@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Ruby Version
-ruby '2.2.0p0'
+ruby '2.2.0'
 
 # Rails 12 Factor for Heroku
 gem 'rails_12factor'
