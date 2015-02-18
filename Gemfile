@@ -1,5 +1,10 @@
 source 'https://rubygems.org'
 
+# Ruby Version
+ruby '2.2.0p0'
+
+# Rails 12 Factor for Heroku
+gem 'rails_12factor'
 # Bootstrap
 gem 'bootstrap-sass', '~> 3.3.1'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
