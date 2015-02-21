@@ -10,37 +10,47 @@
 <body class = "bg">
   <nav class="navbar navbar-fixed-top">
     <div class="container">
-      <div class="navbar-header">
 
+      <div class="navbar-header">
         <div class="col-md-6">
           <a href="/"><%= image_tag('Pioneer_powder_Logo.png', class: 'img-responsive') %></a>
         </div>
+      </div>
 
-        <div class="navbar-right">
-          <ul class="nav navbar-nav navbar-right">
-            <li><button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Login</button></li>
+      <ul class="nav navbar-nav navbar-right">
+        <% if current_user %>
+          <li><%= current_user.email %></li>
+          <li><%= link_to 'Logout', logout_path %></li>
+        <% else %>
+          <li><button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Login</button></li>
 
-            <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-              <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-
-                  <%= render 'layouts/form' %>
-
+        <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="split-panel">
+                <div class="split-panel-section split-panel-divider">
+                  <%= render template: "registrations/new.html.erb" %>
+                </div>
+                <div class="split-panel-section">
+                  <%= render template: "sessions/new.html.erb" %>
                 </div>
               </div>
             </div>
-
-            <li><a href="#">About</a></li>
-            <li><a href="#">FAQ</a></li>
-          </ul>
+          </div>
         </div>
-      </div>
+
+        <% end %>
+
+        <li><a href="#">About</a></li>
+        <li><a href="#">FAQ</a></li>
+      </ul>
+
     </div>
   </nav>
 
   <div class = "container"
-  <%= yield %>
-</div>
+    <%= yield %>
+  </div>
 
 </body>
 </html>
