@@ -1,0 +1,29 @@
+<div class="form-horizontal" id="Register">
+
+  <h3>Register</h3>
+
+  <%= form_for("/register") do |f| %>
+
+  <div class="form-group">
+    <%= f.label :email, :class => "control-label" %>
+    <%= f.email_field :email, :class => 'form-control', :id => 'email' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :password, :class => "control-label" %>
+    <%= f.password_field :password, :class => 'form-control', :id => 'password' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :password_confirmation, :class => "control-label" %>
+    <%= f.password_field :password_confirmation, :class => 'form-control', :id => 'password confirmation' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.submit "Register", :class => "btn btn-primary" %>
+  </div>
+
+  <% end %>
+
+</div>
+</div>
