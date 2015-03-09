@@ -30,17 +30,16 @@
   left: 0;
 }
 
-.split-panel {
-  margin-bottom: 49px;
+.modal-body {
+  padding: 60px;
 }
 
-.split-panel-section.split-panel-divider :first-child {
-border: 0;
-border-right: 1px solid #e0e0e0;
-margin-bottom: 0;
-padding-bottom: 0;
+.split-panel-left {
+  border: 0;
+  border-right: 1px solid #e0e0e0;
+  padding-right: 60px;
 }
 
-.split-panel-section :last-child {
-padding-left: 60px;
+.split-panel-right {
+  padding-left: 60px;
 }
