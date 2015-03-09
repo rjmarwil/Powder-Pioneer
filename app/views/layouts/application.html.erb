@@ -39,12 +39,14 @@
   <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
-        <div class="split-panel">
-          <div class="split-panel-section split-panel-divider">
-            <%= render template: "registrations/new.html.erb" %>
-          </div>
-          <div class="split-panel-section">
-            <%= render template: "sessions/new.html.erb" %>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-6 split-panel-left">
+              <%= render template: "registrations/new.html.erb" %>
+            </div>
+            <div class="col-md-6 split-panel-right">
+              <%= render template: "sessions/new.html.erb" %>
+            </div>
           </div>
         </div>
       </div>
