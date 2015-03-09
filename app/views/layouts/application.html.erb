@@ -22,27 +22,11 @@
           <li><%= current_user.email %></li>
           <li><%= link_to 'Logout', logout_path %></li>
         <% else %>
-          <li><button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Login</button></li>
-
-        <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-              <div class="split-panel">
-                <div class="split-panel-section split-panel-divider">
-                  <%= render template: "registrations/new.html.erb" %>
-                </div>
-                <div class="split-panel-section">
-                  <%= render template: "sessions/new.html.erb" %>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
+          <li><%= link_to "Login", '#', 'data-toggle': "modal", 'data-target': ".bs-example-modal-lg" %></li>
         <% end %>
 
-        <li><a href="#">About</a></li>
-        <li><a href="#">FAQ</a></li>
+        <li><%= link_to "About", root_path %></li>
+        <li><%= link_to "FAQ", root_path %></li>
       </ul>
 
     </div>
@@ -50,6 +34,21 @@
 
   <div class = "container"
     <%= yield %>
+  </div>
+
+  <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="split-panel">
+          <div class="split-panel-section split-panel-divider">
+            <%= render template: "registrations/new.html.erb" %>
+          </div>
+          <div class="split-panel-section">
+            <%= render template: "sessions/new.html.erb" %>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
 </body>
