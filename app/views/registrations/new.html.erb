@@ -2,26 +2,27 @@
 
   <h3>Register</h3>
 
-  <%= form_tag '/register' %>
+  <%= form_for(@user, url: "/register") do |f| %>
 
   <div class="form-group">
-    <%= label_tag :email, nil, :class => "control-label" %>
-    <%= email_field_tag :email, nil, :class => 'form-control', :id => 'email' %>
+    <%= f.label :email, :class => "control-label" %>
+    <%= f.email_field :email, :class => 'form-control', :id => 'email' %>
   </div>
 
   <div class="form-group">
-    <%= label_tag :password, nil, :class => "control-label" %>
-    <%= password_field_tag :password, nil, :class => 'form-control', :id => 'password' %>
+    <%= f.label :password, :class => "control-label" %>
+    <%= f.password_field :password, :class => 'form-control', :id => 'password' %>
   </div>
 
   <div class="form-group">
-    <%= label_tag :password_confirmation, nil, :class => "control-label" %>
-    <%= password_field_tag :password_confirmation, nil, :class => 'form-control', :id => 'password confirmation' %>
+    <%= f.label :password_confirmation, :class => "control-label" %>
+    <%= f.password_field :password_confirmation, :class => 'form-control', :id => 'password confirmation' %>
   </div>
 
   <div class="form-group">
-    <%= submit_tag "Register", :class => "btn btn-primary" %>
+    <%= f.submit "Register", :class => "btn btn-primary" %>
   </div>
 
+  <% end %>
 
 </div>
