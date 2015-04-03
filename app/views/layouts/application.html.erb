@@ -18,15 +18,17 @@
       </div>
 
       <ul class="nav navbar-nav navbar-right">
-        <% if current_user %>
-          <li><%= link_to current_user.email, "#" %></li>
-          <li><%= link_to 'Logout', logout_path %></li>
-        <% else %>
-          <li><%= link_to "Login", '#', 'data-toggle': "modal", 'data-target': ".bs-example-modal-lg" %></li>
-        <% end %>
+        <!-- <%# if current_user %>
+          <li><%# link_to current_user.email, "#" %></li>
+          <li><%# link_to 'Logout', logout_path %></li>
+        <%# else %>
+          <li><%# link_to "Login", '#', 'data-toggle': "modal", 'data-target': ".bs-example-modal-lg" %></li>
+        <%# end %> -->
 
+        <li><%= link_to "Forecast / Weather", root_path %></li>
+        <li><%= link_to "Education", root_path %></li>
+        <li><%= link_to "Resources", root_path %></li>
         <li><%= link_to "About", root_path %></li>
-        <li><%= link_to "FAQ", root_path %></li>
       </ul>
 
     </div>
@@ -38,6 +40,30 @@
         <%= yield %>
       </div>
     </div>
+  </div>
+
+  <div class="container">
+    <footer>
+      <div class="row">
+        <div class= "col-md-6">
+          Created by Jake Marwil, 2015
+        </div>
+        <div class="col-md-6 text-right">
+          <a href="https://www.linkedin.com/in/robertmarwil/">
+            <%= image_tag('linked_in.jpg', class: 'img-footer') %>
+          </a>
+          <a href="https://github.com/rjmarwil">
+            <%= image_tag('cat.png', class: 'img-footer') %>
+          </a>
+          <a href="https://twitter.com/JakeMarwil">
+            <%= image_tag('twitter.png', class: 'img-footer') %>
+          </a>
+          <a href="https://students.gschool.it/students/224">
+            <%= image_tag('galvanize.png', class: 'img-footer') %>
+          </a>
+        </div>
+      </div>
+    </footer>
   </div>
 
   <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
