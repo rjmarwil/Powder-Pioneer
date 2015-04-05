@@ -3,6 +3,9 @@ source 'https://rubygems.org'
 # Ruby Version
 ruby '2.2.0'
 
+gem 'dotenv-rails'
+gem 'faraday', '~> 0.9.1'
+
 # Rails 12 Factor for Heroku
 gem 'rails_12factor'
 # Bootstrap
