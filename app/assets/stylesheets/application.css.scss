@@ -18,6 +18,10 @@
 
 @import "bootstrap";
 
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
 .navbar {
   background-color: white;
   // opacity: 0.2;
