@@ -7,7 +7,7 @@ class WelcomeController < ApplicationController
     else
       @location = params[:location]
     end
-    @info = weather.five_day
+    # @info = weather.five_day
   end
 
 end
