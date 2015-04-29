@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html class="no-js" lang="en">
 <head>
   <title>Powder Pioneer</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
   <%= favicon_link_tag 'skiing_fav.png' %>
 </head>
-<body class="bg", id="top">
+<body id="top">
   <nav class="navbar navbar-fixed-top">
     <div class="container">
 
@@ -25,7 +25,8 @@
           <li><%# link_to "Login", '#', 'data-toggle': "modal", 'data-target': ".bs-example-modal-lg" %></li>
         <%# end %> -->
 
-        <li><%= link_to "Forecast / Weather", root_path %></li>
+        <li><%= link_to "Forecast / Radar", root_path %></li>
+        <li><%= link_to "Weather", root_path %></li>
         <li><%= link_to "Education", root_path %></li>
         <li><%= link_to "Resources", root_path %></li>
         <li><%= link_to "About", root_path %></li>
@@ -34,15 +35,13 @@
     </div>
   </nav>
 
-  <div class="container">
     <div class="row">
-      <div class="col-md-12">
+      <div class= "col-md-12">
         <%= yield %>
       </div>
     </div>
-  </div>
 
-  <div class="container">
+  <!-- <div class="container">
     <footer>
       <div class="row">
         <div class= "col-md-6">
@@ -50,21 +49,21 @@
         </div>
         <div class="col-md-6 text-right">
           <a href="https://www.linkedin.com/in/robertmarwil/">
-            <%= image_tag('linked_in.jpg', class: 'img-footer') %>
+            <%# image_tag('linked_in.jpg', class: 'img-footer') %>
           </a>
           <a href="https://github.com/rjmarwil">
-            <%= image_tag('cat.png', class: 'img-footer') %>
+            <%# image_tag('cat.png', class: 'img-footer') %>
           </a>
           <a href="https://twitter.com/JakeMarwil">
-            <%= image_tag('twitter.png', class: 'img-footer') %>
+            <%# image_tag('twitter.png', class: 'img-footer') %>
           </a>
           <a href="https://students.gschool.it/students/224">
-            <%= image_tag('galvanize.png', class: 'img-footer') %>
+            <%# image_tag('galvanize.png', class: 'img-footer') %>
           </a>
         </div>
       </div>
     </footer>
-  </div>
+  </div> -->
 
   <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
