@@ -15,6 +15,7 @@
 //= require bootstrap.min
 //= require init
 //= require jquery-1.6.1.min
+//= require snow
 //= require bootstrap-sprockets
 //= require_tree .
 
