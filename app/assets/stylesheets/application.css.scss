@@ -10,6 +10,7 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
+ *= require_boostrap.min
  *= require_tree .
  *= require_self
  */
@@ -58,7 +59,82 @@
 }
 
 .img-footer {
-   max-width: 2em;
-   max-height: 2em;
+   max-width: 5em;
+   max-height: 5em;
    margin-right: .5em;
  }
+
+.center {
+  display: block;
+  width: 1000px;
+  margin: 0 auto;
+}
+
+.no-margin {
+  margin: -10px;
+}
+
+#slide1 {
+    background: url("crestedbutte.jpg") 50% 0 fixed;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    height: auto;
+    margin: 0 auto;
+    width: 100%;
+    position: relative;
+    box-shadow: 0 0 50px rgba(0,0,0,0.8);
+    padding: 100px 0;
+}
+
+#slide2 {
+    background: url("SnowCat-Skiing-Brundage.jpg") 50% 0 fixed;
+    height: auto;
+    margin: 0 auto;
+    width: 100%;
+    position: relative;
+    box-shadow: 0 0 50px rgba(0,0,0,0.8);
+    padding: 200px 0;
+}
+
+#slide3 {
+    background: url("slide3.jpg") 50% 0 fixed;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    height: auto;
+    margin: 0 auto;
+    width: 100%;
+    position: relative;
+    box-shadow: 0 0 50px rgba(0,0,0,0.8);
+    padding: 100px 0;
+}
+
+#slide4 {
+    background: url("telluride.JPG") 50% 0 fixed;
+    height: auto;
+    margin: 0 auto;
+    width: 100%;
+    position: relative;
+    box-shadow: 0 0 50px rgba(0,0,0,0.8);
+    padding: 100px 0;
+}
+
+#slide5 {
+    background: url("about.png") 50% 0 fixed;
+    height: auto;
+    margin: 0 auto;
+    width: 100%;
+    position: relative;
+    box-shadow: 0 0 50px rgba(0,0,0,0.8);
+    padding: 100px 0;
+    color: #fff;
+}
+
+.hc {
+  display: block;
+  width: 50%;
+  margin: 0 auto;
+}
