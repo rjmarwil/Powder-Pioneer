@@ -13,6 +13,7 @@
     var flakeCount = 0;
     var interval;
 
+    // Wrap function in on ready function to only occur on checkbox check
     $(function () {
       $('#snowz').click(function() {
         if ($('#snowz').is(':checked')) {
