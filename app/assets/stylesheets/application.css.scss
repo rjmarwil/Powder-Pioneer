@@ -74,6 +74,20 @@
   margin: -10px;
 }
 
+#slide0 {
+    background: url("telluride.JPG") 50% 0 fixed;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    height: auto;
+    margin: 0 auto;
+    width: 100%;
+    position: relative;
+    box-shadow: 0 0 50px rgba(0,0,0,0.8);
+    padding: 100px 0;
+}
+
 #slide1 {
     background: url("crestedbutte.jpg") 50% 0 fixed;
     background-size: cover;
