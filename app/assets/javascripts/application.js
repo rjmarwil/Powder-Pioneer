@@ -12,13 +12,10 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require bootstrap.min
-//= require init
-//= require jquery-1.6.1.min
-//= require snow
-//= require googlemap
 //= require bootstrap-sprockets
-//= require_tree .
+//= require googlemap
+//= require init
+//= require snow
 
 $(document).ready(function(){
    // cache the window object
