@@ -122,7 +122,11 @@ html, body, #map-canvas {
 }
 
 #slide0 {
-  background: url("about.png") 50% 0 fixed;
+  background: url("tellytwo.jpg") 50% 0 fixed;
+  background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
   height: auto;
   margin: 0 auto;
   width: 100%;
