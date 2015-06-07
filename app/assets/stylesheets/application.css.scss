@@ -22,7 +22,7 @@
 html, body, #map-canvas {
   height: 100%;
   margin: 0px;
-  padding: 0px
+  padding: 0px;
 }
 .controls {
   margin-top: 16px;
@@ -151,7 +151,11 @@ html, body, #map-canvas {
 }
 
 #slide2 {
-    background: url("SnowCat-Skiing-Brundage.jpg") 50% 0 fixed;
+    background: url("powder.JPG") 50% 0 fixed;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
     height: auto;
     margin: 0 auto;
     width: 100%;
@@ -161,11 +165,7 @@ html, body, #map-canvas {
 }
 
 #slide3 {
-    background: url("slide3.jpg") 50% 0 fixed;
-    background-size: cover;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
+    background: url("intro.png") 50% 0 fixed;
     height: auto;
     margin: 0 auto;
     width: 100%;
@@ -199,4 +199,120 @@ html, body, #map-canvas {
   display: block;
   width: 50%;
   margin: 0 auto;
+}
+
+$breakpoint-alpha: 480px; // adjust to your needs
+
+.rwd-table {
+  margin: 1em 0;
+  min-width: 300px; // adjust to your needs
+
+  a {
+    color: white;
+    text-decoration: underline;
+  }
+
+  tr {
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+  }
+
+  th {
+    display: none; // for accessibility, use a visually hidden method here instead! Thanks, reddit!
+  }
+
+  td {
+    display: block;
+
+    &:first-child {
+      padding-top: .5em;
+    }
+    &:last-child {
+      padding-bottom: .5em;
+    }
+
+    &:before {
+      content: attr(data-th)": "; // who knew you could do this? The internet, that's who.
+      font-weight: bold;
+
+      // optional stuff to make it look nicer
+      width: 6.5em; // magic number :( adjust according to your own content
+      display: inline-block;
+      // end options
+
+      @media (min-width: $breakpoint-alpha) {
+        display: none;
+      }
+    }
+  }
+
+  th, td {
+    text-align: left;
+
+    @media (min-width: $breakpoint-alpha) {
+      display: table-cell;
+      padding: .25em .5em;
+
+      &:first-child {
+        padding-left: 0;
+      }
+
+      &:last-child {
+        padding-right: 0;
+      }
+    }
+
+  }
+
+
+}
+
+.rwd-table {
+  background: #34495E;
+  color: #fff;
+  border-radius: .4em;
+  overflow: hidden;
+  tr {
+    border-color: lighten(#34495E, 10%);
+  }
+  th, td {
+    margin: .5em 1em;
+    @media (min-width: $breakpoint-alpha) {
+      padding: 1em !important;
+    }
+  }
+  th, td:before {
+    color: #dd5;
+  }
+}
+
+.well {
+  opacity: 0.5;
+}
+
+.rwd {
+  background: #34495E;
+  color: #fff;
+  border-radius: .4em;
+  overflow: hidden;
+  margin: 1em 0;
+  min-width: 300px; // adjust to your needs
+
+  a {
+    color: white;
+    text-decoration: underline;
+  }
+
+  p {
+    border-top: 1px solid #ddd;
+    border-color: lighten(#34495E, 10%);
+    margin-left: 2em;
+    margin-right: 1em;
+  }
+
+  h2 {
+    color: #dd5;
+    border-color: lighten(#34495E, 10%);
+    margin-left: 1em;
+  }
 }
