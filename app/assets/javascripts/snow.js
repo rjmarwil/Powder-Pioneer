@@ -15,13 +15,16 @@
 
     // Wrap function in on ready function to only occur on checkbox check
     $(function () {
+      var county = 0;
       $('#snowz').click(function() {
-        if ($('#snowz').is(':checked')) {
+        if (county === 0) {
           $(init);
+          county++;
         }
         else {
           clearInterval(interval);
           $('span.winternetz').remove();
+          county--;
         }
       });
     });
