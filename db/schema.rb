@@ -18,8 +18,8 @@ ActiveRecord::Schema.define(version: 20150607055243) do
 
   create_table "locations", force: :cascade do |t|
     t.string  "name"
-    t.float   "latitude"
-    t.float   "longitude"
+    t.float   "lat"
+    t.float   "lng"
     t.integer "difficulty"
     t.integer "riskiness"
     t.string  "description"
