@@ -1,100 +1,222 @@
 var map;
 
+//############### Google Map Initialize ##############
 function initialize() {
   var mapOptions = {
-    zoom: 9
+    center: new google.maps.LatLng(39.2244,-105.9981), //Google map Coordinates
+    zoom: 8, //zoom level, 0 = earth view to higher value
+    panControl: true, //enable pan Control
+    zoomControl: true, //enable zoom control
+    zoomControlOptions: {
+      style: google.maps.ZoomControlStyle.SMALL //zoom control size
+    },
+    scaleControl: true, // enable scale control
+    mapTypeId: google.maps.MapTypeId.ROADMAP // google map type
   };
-  map = new google.maps.Map(document.getElementById('map-canvas'),
-      mapOptions);
 
-  // Try HTML5 geolocation
-  if(navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      var pos = new google.maps.LatLng(position.coords.latitude,
-                                       position.coords.longitude);
+  map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
 
-      var image = '/assets/ski-map-icon.png';
-      var skiMarker = new google.maps.Marker({
-          position: pos,
-          map: map,
-          icon: image
-      });
+  //Load Markers from the database
+  $.ajax({
+      url: "/locations",
+      method: "GET",
+    }).success(function (data) {
+      $(data).find("marker").each(function () {
+     //Get user input values for the marker from the form
+      var name = $(this).attr('name');
+      var difficulty = $(this).attr('difficulty');
+      var riskiness = $(this).attr('riskiness');
+      var point = new google.maps.LatLng(parseFloat($(this).attr('lat')),parseFloat($(this).attr('lng')));
 
-      map.setCenter(pos);
-    }, function() {
-      handleNoGeolocation(true);
+      //call create_marker() function for xml loaded maker
+      create_marker(point, name, difficulty, riskiness, "", false, false, false);
     });
-  } else {
-    // Browser doesn't support Geolocation
-    handleNoGeolocation(false);
-  }
-
-  // Create the search box and link it to the UI element.
-  var input = /** @type {HTMLInputElement} */(
-      document.getElementById('pac-input'));
-  map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-
-  var searchBox = new google.maps.places.SearchBox(
-    /** @type {HTMLInputElement} */(input));
-
-  // [START region_getplaces]
-  // Listen for the event fired when the user selects an item from the
-  // pick list. Retrieve the matching places for that item.
-  google.maps.event.addListener(searchBox, 'places_changed', function() {
-    var places = searchBox.getPlaces();
-
-    if (places.length == 0) {
-      return;
-    }
-    for (var i = 0, marker; marker = markers[i]; i++) {
-      marker.setMap(null);
-    }
-
-    // For each place, get the icon, place name, and location.
-    markers = [];
-    var bounds = new google.maps.LatLngBounds();
-    for (var i = 0, place; place = places[i]; i++) {
-      var image = {
-        url: place.icon,
-        size: new google.maps.Size(71, 71),
-        origin: new google.maps.Point(0, 0),
-        anchor: new google.maps.Point(17, 34),
-        scaledSize: new google.maps.Size(25, 25)
-      };
-
-      // Create a marker for each place.
-      var marker = new google.maps.Marker({
-        map: map,
-        icon: image,
-        title: place.name,
-        position: place.geometry.location
-      });
-
-      markers.push(marker);
-
-      bounds.extend(place.geometry.location);
-    }
-
-    map.fitBounds(bounds);
   });
-  // [END region_getplaces]
-}
 
-function handleNoGeolocation(errorFlag) {
-  if (errorFlag) {
-    var content = 'Error: The Geolocation service failed.';
-  } else {
-    var content = 'Error: Your browser doesn\'t support geolocation.';
-  }
+  //drop a new marker on click
+  google.maps.event.addListener(map, 'rightclick', function(event) {
+    //Edit form to be displayed with new marker
+    var EditForm = '<p><div class="marker-edit">'+
+    '<form action="ajax-save.php" method="POST" name="SaveMarker" id="SaveMarker">'+
+    '<label for="pName"><span>Place Name :</span><input type="text" name="pName" class="save-name" placeholder="Enter Title" maxlength="40" /></label>'+
+    '<label for="pDifficulty"><span>Difficulty :</span> <select name="pDifficulty" class="save-difficulty"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></label>'+
+    '<label for="pRiskiness"><span>Riskiness :</span> <select name="pRiskiness" class="save-riskiness"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></label>'+
+    '<label for="pDesc"><span>Description :</span><textarea name="pDesc" class="save-desc" placeholder="Enter Description"></textarea></label>'+
+    '</form>'+
+    '</div></p><button name="save-marker" class="save-marker">Save Marker Details</button>';
 
-  var options = {
-    map: map,
-    position: new google.maps.LatLng(60, 105),
-    content: content
-  };
-
-  var infowindow = new google.maps.InfoWindow(options);
-  map.setCenter(options.position);
+    //call create_marker() function
+    create_marker(event.latLng, 'New Marker', 1, 1, EditForm, true, true, true);
+  });
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
+
+//############### Create Marker Function ##############
+function create_marker(MapPos, MapTitle, MapDiff, MapRisk, MapDesc, InfoOpenDefault, DragAble, Removable) {
+  //new marker
+  var image = '/assets/ski-map-icon.png';
+  var marker = new google.maps.Marker({
+      position: MapPos,
+      map: map,
+      icon: image,
+      draggable:DragAble
+  });
+
+  //Content structure of info Window for the Markers
+  var contentString = $('<div class="marker-info-win">'+
+  '<div class="marker-inner-win"><span class="info-content">'+
+  '<h1 class="marker-heading">'+MapTitle+'</h1>'+
+  MapDesc+
+  '</span><button name="remove-marker" class="remove-marker" title="Remove Marker">Remove Marker</button>'+
+  '</div></div>');
+
+  //Create an infoWindow
+  var infowindow = new google.maps.InfoWindow();
+
+  //set the content of infoWindow
+  infowindow.setContent(contentString[0]);
+
+  //Find remove button in infoWindow
+  var removeBtn = contentString.find('button.remove-marker')[0];
+
+ //Find save button in infoWindow
+  var saveBtn = contentString.find('button.save-marker')[0];
+
+  //add click listener to remove marker button
+  google.maps.event.addDomListener(removeBtn, "click", function(event) {
+    //call remove_marker function to remove the marker from the map
+    remove_marker(marker);
+  });
+
+  if(typeof saveBtn !== 'undefined') { //continue only when save button is present
+    //add click listener to save marker button
+    google.maps.event.addDomListener(saveBtn, "click", function(event) {
+      var mReplace = contentString.find('span.info-content'); //html to be replaced after success
+      var mName = contentString.find('input.save-name')[0].value; //name input field value
+      var mDifficulty = contentString.find('select.save-difficulty')[0].value; //difficulty input field value
+      var mRiskiness = contentString.find('select.save-riskiness')[0].value; //riskiness input field value
+      var mDesc = contentString.find('textarea.save-desc')[0].value; //description input field value
+
+      if (mName === "" || mDesc === "") {
+        alert("Please enter Name and Description");
+      }
+      else {
+        //call save_marker function and save the marker details
+        save_marker(marker, mName, mDifficulty, mRiskiness, mDesc, mReplace);
+      }
+    });
+  }
+
+  //add click listener to save marker button
+  google.maps.event.addListener(marker, 'click', function() {
+    infowindow.open(map,marker); // click on marker opens info window
+  });
+
+  if(InfoOpenDefault) { //whether info window should be open by default
+    infowindow.open(map,marker);
+  }
+}
+
+//############### Remove Marker Function ##############
+function remove_marker(Marker) {
+  /* determine whether marker is draggable
+  new markers are draggable and saved markers are fixed */
+  if (Marker.getDraggable()) {
+    Marker.setMap(null); //just remove new marker
+  }
+  else {
+    //Remove saved marker from DB and map using jQuery Ajax
+    var mLatLng = Marker.getPosition().toUrlValue(); //get marker position
+    var myData = {del : 'true', latlang : mLatLng}; //post variables
+    $.ajax({
+      type: "POST",
+      url: "",
+      data: myData,
+      success:function(data){
+        Marker.setMap(null);
+        alert(data);
+      },
+      error:function (xhr, ajaxOptions, thrownError){
+        alert(thrownError); //throw any errors
+      }
+    });
+  }
+}
+
+//############### Save Marker Function ##############
+function save_marker(Marker, mName, mDifficulty, mRiskiness, mDesc, replaceWin) {
+  //Save new marker using jQuery Ajax
+  var mLatLng = Marker.getPosition().toUrlValue(); //get marker position
+  var myData = {name : mName, difficulty : mDifficulty, riskiness : mRiskiness, latlng : mLatLng, type : mType }; //post variables
+  console.log(replaceWin);
+  $.ajax({
+    type: "POST",
+    url: "",
+    data: myData,
+    success:function(data){
+      replaceWin.html(data); //replace info window with new html
+      Marker.setDraggable(false); //set marker to fixed
+    },
+    error:function (xhr, ajaxOptions, thrownError){
+      alert(thrownError); //throw any errors
+    }
+  });
+}
+
+// var map;
+// var marker;
+//
+// var infowindow = new google.maps.InfoWindow({
+//   size: new google.maps.Size(150,50)
+// });
+//
+// // A function to create the marker and set up the event window function
+// function createMarker(latlng, name, html) {
+//   var contentString = html;
+//   var image = '/assets/ski-map-icon.png';
+//   var marker = new google.maps.Marker({
+//     position: latlng,
+//     map: map,
+//     icon: image,
+//     draggable: true,
+//     zIndex: Math.round(latlng.lat()*-100000)<<5
+//   });
+//
+//   // google.maps.event.addListener(marker, 'click', function() {
+//   //   infowindow.setContent(contentString);
+//   //   infowindow.open(map,marker);
+//   // });
+//
+//   google.maps.event.trigger(marker, 'click');
+//   return marker;
+// }
+//
+// function initialize() {
+//   // create the map
+//   var mapOptions = {
+//     zoom: 8,
+//     center: new google.maps.LatLng(39.2244,-105.9981),
+//     mapTypeControl: true,
+//     mapTypeControlOptions: {style: google.maps.MapTypeControlStyle.DROPDOWN_MENU},
+//     navigationControl: true,
+//     mapTypeId: google.maps.MapTypeId.ROADMAP
+//   };
+//   map = new google.maps.Map(document.getElementById("map-canvas"),
+//         mapOptions);
+//
+//   google.maps.event.addListener(map, 'click', function() {
+//     infowindow.close();
+//   });
+//
+//   google.maps.event.addListener(map, 'click', function(event) {
+//     //call function to create marker
+//     if (marker) {
+//       marker.setMap(null);
+//       marker = null;
+//     }
+//     marker = createMarker(event.latLng, "name", "<b>Location</b><br>"+event.latLng);
+//   });
+// }
+//
+// google.maps.event.addDomListener(window, 'load', initialize);
