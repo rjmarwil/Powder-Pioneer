@@ -3,7 +3,7 @@ users_count = 5
 
 # clear out data
 %w[
-  locations
+  markers
   users
 ].each do |table_name|
   ActiveRecord::Base.connection.execute("TRUNCATE TABLE #{table_name}")
@@ -24,12 +24,12 @@ users_count.times.map do
 end
 puts
 
-# create some locations
+# create some markers
 print "creating locations"
 User.all.map do |user|
   print '(o)(o) '
   time = Faker::Time.between(4.hours.ago, Time.now)
-  user.locations.create(
+  user.markers.create(
     name: Faker::Lorem.sentences(rand(1..2)).join(' '),
     difficulty: [1,2,3,4,5].sample,
     riskiness: [1,2,3,4,5].sample,

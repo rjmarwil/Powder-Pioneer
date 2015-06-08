@@ -8,32 +8,36 @@ class WelcomeController < ApplicationController
     #   @location = params[:location]
     # end
     # @info = weather.five_day
-    @locations = Location.all
+    @markers = Marker.all
+  end
+
+  def show
+    @markers = Marker.all
   end
 
   def new
-    @location = Location.new
+    @marker = Marker.new
   end
 
   def create
-    @location = Location.new(location_params)
-    if @location.save
-      render json: @location.to_json
+    @marker = Marker.new(marker_params)
+    if @marker.save
+      render json: @marker.to_json
     else
       render :new
     end
   end
 
   def destroy
-    @location = Location.find_by(params[:id])
-    @location.destroy
+    @marker = Marker.find_by(params[:id])
+    @marker.destroy
     render nothing: true
   end
 
 private
 
-  def location_params
-    params.require(:location).permit(:name, :difficulty, :riskiness, :description)
+  def marker_params
+    params.require(:marker).permit(:name, :difficulty, :riskiness, :description, :lat, :lng)
   end
 
 end
