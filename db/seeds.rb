@@ -1,7 +1,48 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+# sizes
+users_count = 5
+
+# clear out data
+%w[
+  locations
+  users
+].each do |table_name|
+  ActiveRecord::Base.connection.execute("TRUNCATE TABLE #{table_name}")
+end
+
+print "creating users"
+# create some users
+users_count.times.map do
+  print '\(^_^)/ '
+  first_name = Faker::Name.first_name
+  last_name = Faker::Name.last_name
+  full_name = "#{first_name}, #{last_name}"
+  User.create(
+    email: Faker::Internet.safe_email(full_name),
+    password: "password",
+    password_confirmation: "password"
+  )
+end
+puts
+
+# create some locations
+print "creating locations"
+User.all.map do |user|
+  print '(o)(o) '
+  time = Faker::Time.between(4.hours.ago, Time.now)
+  user.locations.create(
+    name: Faker::Lorem.sentences(rand(1..2)).join(' '),
+    difficulty: [1,2,3,4,5].sample,
+    riskiness: [1,2,3,4,5].sample,
+    description: Faker::Lorem.sentences(rand(1..4)).join(' '),
+    created_at: time,
+    updated_at: time
+  )
+end
+puts
+
+puts <<EOF
+
+Log in with:
+  email:    #{User.first.email}
+  password: password
+EOF
