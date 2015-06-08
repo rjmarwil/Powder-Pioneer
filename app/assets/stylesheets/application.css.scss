@@ -287,7 +287,8 @@ $breakpoint-alpha: 480px; // adjust to your needs
 }
 
 .well {
-  opacity: 0.5;
+  background-color: rgba(227, 227, 227, 0.5);
+  border: transparent;
 }
 
 .rwd {
