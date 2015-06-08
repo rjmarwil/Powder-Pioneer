@@ -35,7 +35,9 @@ User.all.map do |user|
     riskiness: [1,2,3,4,5].sample,
     description: Faker::Lorem.sentences(rand(1..4)).join(' '),
     created_at: time,
-    updated_at: time
+    updated_at: time,
+    lat: [39.7392, 38.8293, 37.9392, 40.4764, 39.6050, 38.8677].sample,
+    lng: [-104.9903, -106.1395, -107.8163, -106.8267, -106.5153, -106.9773].sample
   )
 end
 puts
