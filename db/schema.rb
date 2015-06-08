@@ -17,13 +17,15 @@ ActiveRecord::Schema.define(version: 20150607055243) do
   enable_extension "plpgsql"
 
   create_table "locations", force: :cascade do |t|
-    t.string  "name"
-    t.float   "lat"
-    t.float   "lng"
-    t.integer "difficulty"
-    t.integer "riskiness"
-    t.string  "description"
-    t.integer "user_id"
+    t.string   "name"
+    t.float    "lat"
+    t.float    "lng"
+    t.integer  "difficulty"
+    t.integer  "riskiness"
+    t.string   "description"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", force: :cascade do |t|

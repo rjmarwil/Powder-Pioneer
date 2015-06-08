@@ -8,6 +8,8 @@ class CreateLocations < ActiveRecord::Migration
       t.integer :riskiness
       t.string :description
       t.integer :user_id
+      t.datetime :created_at
+      t.datetime :updated_at
     end
   end
 end
