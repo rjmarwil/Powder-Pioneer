@@ -46,7 +46,7 @@ function initialize() {
     '</div></p><button name="save-marker" class="save-marker">Save Marker Details</button>';
 
     //call create_marker() function
-    create_marker(event.latLng, 'New Marker', 1, 1, EditForm, true, true, true);
+    create_marker(event.latLng, 'New Ski Area', 1, 1, EditForm, true, true, true);
   });
 }
 
