@@ -47,7 +47,7 @@ function initialize() {
     '</div></p><button name="save-marker" class="save-marker">Save Marker Details</button>';
 
     //call create_marker() function
-    create_marker(event.latLng, 'New Ski Area', 1, 1, EditForm, true, true, true);
+    create_marker(event.latLng, 'New Ski Area', -1, -1, EditForm, true, true, true);
   });
 }
 
@@ -65,12 +65,22 @@ function create_marker(MapPos, MapTitle, MapDiff, MapRisk, MapDesc, InfoOpenDefa
   });
 
   //Content structure of info Window for the Markers
-  var contentString = $('<div class="marker-info-win">'+
-  '<div class="marker-inner-win"><span class="info-content">'+
-  '<h1 class="marker-heading">'+MapTitle+'</h1>'+
-  '<p><strong>Riskiness:</strong> '+MapRisk+'</p><p><strong>Difficulty:</strong> '+MapDiff+'</p><p><strong>Description:</strong> '+MapDesc+'</p><p>'+
-  '</span><button name="remove-marker" class="remove-marker" title="Remove Marker">Remove Marker</button>'+
-  '</div></div>');
+  var contentString;
+  if (MapDiff === -1) {
+    contentString = $('<div class="marker-info-win">'+
+    '<div class="marker-inner-win"><span class="info-content">'+
+    '<h1 class="marker-heading">'+MapTitle+'</h1>'+MapDesc+
+    '</span><button name="remove-marker" class="remove-marker" title="Remove Marker">Remove Marker</button>'+
+    '</div></div>');
+  }
+  else {
+    contentString = $('<div class="marker-info-win">'+
+    '<div class="marker-inner-win"><span class="info-content">'+
+    '<h1 class="marker-heading">'+MapTitle+'</h1>'+
+    '<p><strong>Riskiness:</strong> '+MapRisk+'</p><p><strong>Difficulty:</strong> '+MapDiff+'</p><p><strong>Description:</strong> '+MapDesc+'</p><p>'+
+    '</span><button name="remove-marker" class="remove-marker" title="Remove Marker">Remove Marker</button>'+
+    '</div></div>');
+  }
 
   //Create an infoWindow
   var infowindow = new google.maps.InfoWindow();
@@ -155,7 +165,14 @@ function save_marker(Marker, mName, mDifficulty, mRiskiness, mDesc, replaceWin) 
     url: "/markers",
     data: myData,
     success:function(data){
-      replaceWin.html(data); //replace info window with new html
+      var content = $('<div class="marker-info-win">'+
+      '<div class="marker-inner-win"><span class="info-content">'+
+      '<h1 class="marker-heading">'+data.name+'</h1>'+
+      '<p><strong>Riskiness:</strong> '+data.riskiness+'</p><p><strong>Difficulty:</strong> '+data.difficulty+'</p><p><strong>Description:</strong> '+data.description+'</p><p>'+
+      '</span>'+
+      '</div></div>');
+
+      replaceWin.html(content); //replace info window with new html
       Marker.setDraggable(false); //set marker to fixed
     },
     error:function (xhr, ajaxOptions, thrownError){
