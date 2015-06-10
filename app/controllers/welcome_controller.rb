@@ -8,7 +8,11 @@ class WelcomeController < ApplicationController
     #   @location = params[:location]
     # end
     # @info = weather.five_day
+  end
+
+  def get_markers
     @markers = Marker.all
+    render json: @markers
   end
 
   def show
@@ -29,7 +33,9 @@ class WelcomeController < ApplicationController
   end
 
   def destroy
-    @marker = Marker.find_by(params[:id])
+    @lat = params[:marker][:lat]
+    @lng = params[:marker][:lng]
+    @marker = Marker.find_by(lat: @lat, lng: @lng)
     @marker.destroy
     render nothing: true
   end

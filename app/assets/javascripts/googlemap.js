@@ -18,10 +18,10 @@ function initialize() {
 
   //Load Markers from the database
   $.ajax({
-      url: "/locations",
+      url: "/markers",
       method: "GET",
     }).success(function (data) {
-      $(data).find("marker").each(function () {
+      $(data).each(function () {
      //Get user input values for the marker from the form
       var name = $(this).attr('name');
       var difficulty = $(this).attr('difficulty');
@@ -128,14 +128,13 @@ function remove_marker(Marker) {
   else {
     //Remove saved marker from DB and map using jQuery Ajax
     var mLatLng = Marker.getPosition().toUrlValue(); //get marker position
-    var myData = {del : 'true', latlang : mLatLng}; //post variables
+    var myData = {marker: {lat : mLatLng.split(",")[0], lng : mLatLng.split(",")[1] }}; //post variables
     $.ajax({
-      type: "POST",
-      url: "",
+      type: "DELETE",
+      url: "/markers/",
       data: myData,
-      success:function(data){
+      success:function(){
         Marker.setMap(null);
-        alert(data);
       },
       error:function (xhr, ajaxOptions, thrownError){
         alert(thrownError); //throw any errors
@@ -148,11 +147,11 @@ function remove_marker(Marker) {
 function save_marker(Marker, mName, mDifficulty, mRiskiness, mDesc, replaceWin) {
   //Save new marker using jQuery Ajax
   var mLatLng = Marker.getPosition().toUrlValue(); //get marker position
-  var myData = {name : mName, difficulty : mDifficulty, riskiness : mRiskiness, latlng : mLatLng, type : mType }; //post variables
+  var myData = {marker: {name : mName, difficulty : mDifficulty, riskiness : mRiskiness, lat : mLatLng.split(",")[0], lng : mLatLng.split(",")[1], description : mDesc }}; //post variables
   console.log(replaceWin);
   $.ajax({
     type: "POST",
-    url: "",
+    url: "/markers",
     data: myData,
     success:function(data){
       replaceWin.html(data); //replace info window with new html

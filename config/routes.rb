@@ -11,7 +11,9 @@ Rails.application.routes.draw do
   post '/login' => 'sessions#create'
   get '/logout' => 'sessions#destroy'
 
-  resources :locations
+  get '/markers' => 'welcome#get_markers'
+  post '/markers' => 'welcome#create'
+  delete '/markers/' => 'welcome#destroy'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
