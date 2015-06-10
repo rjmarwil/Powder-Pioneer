@@ -26,10 +26,11 @@ function initialize() {
       var name = $(this).attr('name');
       var difficulty = $(this).attr('difficulty');
       var riskiness = $(this).attr('riskiness');
+      var description = $(this).attr('description');
       var point = new google.maps.LatLng(parseFloat($(this).attr('lat')),parseFloat($(this).attr('lng')));
 
       //call create_marker() function for xml loaded maker
-      create_marker(point, name, difficulty, riskiness, "", false, false, false);
+      create_marker(point, name, difficulty, riskiness, description, false, false, false);
     });
   });
 
@@ -67,7 +68,7 @@ function create_marker(MapPos, MapTitle, MapDiff, MapRisk, MapDesc, InfoOpenDefa
   var contentString = $('<div class="marker-info-win">'+
   '<div class="marker-inner-win"><span class="info-content">'+
   '<h1 class="marker-heading">'+MapTitle+'</h1>'+
-  MapDesc+
+  '<p><strong>Riskiness:</strong> '+MapRisk+'</p><p><strong>Difficulty:</strong> '+MapDiff+'</p><p><strong>Description:</strong> '+MapDesc+'</p><p>'+
   '</span><button name="remove-marker" class="remove-marker" title="Remove Marker">Remove Marker</button>'+
   '</div></div>');
 
