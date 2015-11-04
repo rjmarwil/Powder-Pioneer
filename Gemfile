@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Ruby Version
-ruby '2.1.5'
+ruby '2.1.6'
 
 gem 'dotenv-rails'
 gem 'faraday', '~> 0.9.1'
